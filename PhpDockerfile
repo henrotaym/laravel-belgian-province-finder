@@ -1,0 +1,9 @@
+ARG COMMAND
+
+FROM php:8.1-cli
+
+WORKDIR /usr/src/app
+
+COPY . .
+
+CMD php $COMMAND

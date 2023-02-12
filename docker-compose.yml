@@ -1,0 +1,14 @@
+version: '3'
+services:
+  composer:
+    build:
+      dockerfile: ComposerDockerfile
+      context: .
+    volumes:
+      - ./:/usr/src/app
+  php:
+    build:
+      context: .
+      dockerfile: PhpDockerfile
+    volumes:
+      - ./:/usr/src/app
