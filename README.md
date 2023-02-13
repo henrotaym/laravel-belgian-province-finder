@@ -27,7 +27,7 @@ use Henrotaym\LaravelBelgianProvinceFinder\Models\Provinces\ProvinceKey;
 interface ProvinceRepositoryContract
 {
     /**
-     * Getting province based on given postcode.
+     * Finding province based on given postcode.
      * 
      * @param int $postcode
      * @return ?ProvinceContract
@@ -109,11 +109,28 @@ interface PostcodeIntervalContract
     public function getEnd(): int;
 
     /**
-     * Telling if given postcode is included in range.
+     * Telling if given postcode is included in postcode range.
      * 
      * @param int $postcode
      * @return bool
      */
     public function isPostcodeIncluded(int $postcode): bool;
+}
+```
+### ProvinceKey
+```php
+enum ProvinceKey: string
+{
+    case WEST_FLANDERS = "west-flanders";
+    case EAST_FLANDERS = "east-flanders";
+    case ANTWERP = "antwerp";
+    case LIMBURG = "limburg";
+    case FLEMISH_BRABANT = "flemish-brabant";
+    case BRUSSELS_CAPITAL_REGION = "brussels-capital-region";
+    case WALLOON_BRABANT = "walloon-brabant";
+    case HAINAUT = "hainaut";
+    case NAMUR = "namur";
+    case LIEGE = "liege";
+    case LUXEMBOURG = "luxembourg";
 }
 ```

@@ -18,7 +18,7 @@ interface PostcodeIntervalContract
     public function getEnd(): int;
 
     /**
-     * Telling if given postcode is included in range.
+     * Telling if given postcode is included in postcode range.
      * 
      * @param int $postcode
      * @return bool

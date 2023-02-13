@@ -8,7 +8,7 @@ use Henrotaym\LaravelBelgianProvinceFinder\Models\Provinces\ProvinceKey;
 interface ProvinceRepositoryContract
 {
     /**
-     * Getting province based on given postcode.
+     * Finding province based on given postcode.
      * 
      * @param int $postcode
      * @return ?ProvinceContract
