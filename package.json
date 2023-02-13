@@ -1,8 +1,8 @@
 {
-    "name": "versioning-package-template",
-    "version": "1.1.0",
+    "name": "laravel-belgian-province-finder",
+    "version": "1.0.0",
     "main": "index.js",
-    "repository": "git@github.com:henrotaym/versioning-package-template.git",
+    "repository": "git@github.com:henrotaym/laravel-belgian-province-finder.git",
     "author": "Mathieu Henrotay <mathieu.henrotay@gmail.com>",
     "license": "MIT",
     "scripts": {
@@ -10,6 +10,7 @@
         "commit": "gitmoji -c && npm run push",
         "push": "git push && git push --tags",
         "commit:all": "git add . && npm run commit",
-        "alpha": "npm version --preid=alpha"
+        "alpha": "npm version --preid=alpha",
+        "version:alpha": "npm version prerelease --preid=alpha"
     }
 }

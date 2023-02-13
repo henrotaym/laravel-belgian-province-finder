@@ -1,7 +1,7 @@
 <?php
-namespace Henrotaym\VersioningPackageTemplate\Facades;
+namespace Henrotaym\LaravelBelgianProvinceFinder\Facades;
 
-use Henrotaym\VersioningPackageTemplate\Package as Underlying;
+use Henrotaym\LaravelBelgianProvinceFinder\Package as Underlying;
 use Henrotaym\LaravelPackageVersioning\Facades\Abstracts\VersionablePackageFacade;
 
 class Package extends VersionablePackageFacade

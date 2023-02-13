@@ -1,6 +1,6 @@
 {
-    "name": "henrotaym/versioning-package-template",
-    "description": "Basic versioned php package.",
+    "name": "henrotaym/laravel-belgian-province-finder",
+    "description": "Finding belgian province based on given criteria.",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -13,23 +13,23 @@
         "henrotaym/laravel-package-versioning-config": "^1.3"
     },
     "require-dev": {
-        "orchestra/testbench": "^6.0",
+        "orchestra/testbench": "^7.0",
         "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
-            "Henrotaym\\VersioningPackageTemplate\\": "src"
+            "Henrotaym\\LaravelBelgianProvinceFinder\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Henrotaym\\VersioningPackageTemplate\\Tests\\": "tests"
+            "Henrotaym\\LaravelBelgianProvinceFinder\\Tests\\": "tests"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Henrotaym\\VersioningPackageTemplate\\Providers\\VersioningPackageTemplateServiceProvider"
+                "Henrotaym\\LaravelBelgianProvinceFinder\\Providers\\LaravelBelgianProvinceFinderServiceProvider"
             ]
         }
     }

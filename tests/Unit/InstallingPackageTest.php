@@ -1,7 +1,8 @@
 <?php
-namespace Henrotaym\VersioningPackageTemplate\Tests\Unit;
+namespace Henrotaym\LaravelBelgianProvinceFinder\Tests\Unit;
 
-use Henrotaym\VersioningPackageTemplate\Tests\TestCase;
+use Henrotaym\LaravelBelgianProvinceFinder\Contracts\Repositories\Provinces\ProvinceRepositoryContract;
+use Henrotaym\LaravelBelgianProvinceFinder\Tests\TestCase;
 use Henrotaym\LaravelPackageVersioning\Testing\Traits\InstallPackageTest;
 
 class InstallingPackageTest extends TestCase

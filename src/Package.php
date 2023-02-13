@@ -1,7 +1,7 @@
 <?php
-namespace Henrotaym\VersioningPackageTemplate;
+namespace Henrotaym\LaravelBelgianProvinceFinder;
 
-use Henrotaym\VersioningPackageTemplate\Contracts\PackageContract;
+use Henrotaym\LaravelBelgianProvinceFinder\Contracts\PackageContract;
 use Henrotaym\LaravelPackageVersioning\Services\Versioning\VersionablePackage;
 
 class Package extends VersionablePackage implements PackageContract
