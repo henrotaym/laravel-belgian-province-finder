@@ -74,6 +74,8 @@ interface ProvinceContract
     public function getKey(): ProvinceKey;
 
     /**
+     * Getting related postcode intervals.
+     * 
      * @return Collection<int, PostcodeIntervalContract>
      */
     public function getPostcodeIntervals(): Collection;
