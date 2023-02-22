@@ -155,7 +155,12 @@ enum ProvinceKey: string
 ```
 ### IsRelatedToProvince
 ```php
-trait IsRelatedToProvince
+use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Builder;
+use Henrotaym\LaravelBelgianProvinceFinder\Contracts\Models\Provinces\ProvinceContract;
+use Henrotaym\LaravelBelgianProvinceFinder\Contracts\Models\Provinces\PostcodeIntervalContract;
+
+interface IsRelatedToProvince
 {
     /**
      * Limiting models to those matching given province.
@@ -165,12 +170,7 @@ trait IsRelatedToProvince
      * @param string $postcodeColumn
      * @return Builder
      */
-    public function scopeWhereProvinceIs(Builder $query, ProvinceContract $province, string $postcodeColumn): Builder
-    {
-        return $query->where(function (Builder $query) use ($province, $postcodeColumn) {
-            return $query->scopeInPostcodeIntervals($province->getPostcodeIntervals(), $postcodeColumn);
-        });
-    }
+    public function scopeWhereProvinceIs(Builder $query, ProvinceContract $province, string $postcodeColumn): Builder;
 
     /**
      * Limiting models to those matching given postcode intervals.
@@ -180,16 +180,7 @@ trait IsRelatedToProvince
      * @param string $postcodeColumn
      * @return Builder
      */
-    public function scopeInPostcodeIntervals(Builder $query, Collection $postcodeIntervals, string $postcodeColumn): Builder
-    {
-        $postcodeIntervals->each(fn (PostcodeIntervalContract $postcode) => 
-            $query->orWhere(function (Builder $query) use ($postcode, $postcodeColumn) {
-                return $query->inPostcodeInterval($postcode, $postcodeColumn);
-            })
-        );
-
-        return $query;
-    }
+    public function scopeInPostcodeIntervals(Builder $query, Collection $postcodeIntervals, string $postcodeColumn): Builder;
 
      /**
      * Limiting models to those matching given postcode interval.
@@ -199,10 +190,6 @@ trait IsRelatedToProvince
      * @param string $postcodeColumn
      * @return Builder
      */
-    public function scopeInPostcodeInterval(Builder $query, PostcodeIntervalContract $postcodeInterval, string $postcodeColumn): Builder
-    {
-        return $query->where($postcodeColumn, ">=", $postcodeInterval->getStart())
-            ->where($postcodeColumn, "<", $postcodeInterval->getEnd());
-    }
+    public function scopeInPostcodeInterval(Builder $query, PostcodeIntervalContract $postcodeInterval, string $postcodeColumn): Builder;
 }
 ```
