@@ -11,27 +11,39 @@ composer require henrotaym/laravel-belgian-province-finder
 use Henrotaym\LaravelBelgianProvinceFinder\Models\Provinces\ProvinceKey;
 use Henrotaym\LaravelBelgianProvinceFinder\Contracts\Repositories\Provinces\ProvinceRepositoryContract;
 
-$repository = app()->make(ProvinceRepositoryContract::class);
-$liegeProvince = $repository->findByPostcode(4000);
-$westFlandersProvince = $repository->findByKey(ProvinceKey::WEST_FLANDERS);
-$provinces = $repository->getAll();
+$repository = app()->make(ProvinceRepositoryContract::class); // ProvinceRepositoryContract
+$liegeProvince = $repository->findByPostcode(4000); // ?ProvinceContract
+$westFlandersProvince = $repository->findByKey(ProvinceKey::WEST_FLANDERS); // ?ProvinceContract
+$provinces = $repository->getAll(); // Collection<int, ProvinceContract>
 ```
 
 ## Province related model
-### Add trait to your model
+### Configure your model with trait and interface
 ```php
 use Illuminate\Database\Eloquent\Model;
-use Henrotaym\LaravelBelgianProvinceFinder\Contracts\Models\Scopes\IsRelatedToProvince;
+use Henrotaym\LaravelBelgianProvinceFinder\Models\Scopes\IsProvinceRelatedModel;
+use Henrotaym\LaravelBelgianProvinceFinder\Contracts\Models\IsProvinceRelatedModelContract;
 
-class MyModel extends Model
+class MyModel extends Model implements IsProvinceRelatedModelContract
 {
-    use IsRelatedToProvince;
+    use IsProvinceRelatedModel;
+
+    public function getProvincePostcodeColumn(): string
+    {
+        return "address->postcode";
+    }
+
+    public function getProvincePostcodeValue(): ?int
+    {
+        return $this->address['postcode'] ?? null;
+    }
 }
 ```
 
 ### Usage
 ```php
-MyModel::query()->whereProvinceIs($province, "postal_code")->first();
+$models = MyModel::query()->whereProvinceIs($province)->get(); // Collection<int, MyModel>
+MyModel::find(23)->getProvinceByPostcode() // ProvinceContract
 ```
 
 ## References
@@ -153,14 +165,14 @@ enum ProvinceKey: string
     case LUXEMBOURG = "luxembourg";
 }
 ```
-### IsRelatedToProvince
+### IsProvinceRelatedModel
 ```php
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Builder;
 use Henrotaym\LaravelBelgianProvinceFinder\Contracts\Models\Provinces\ProvinceContract;
 use Henrotaym\LaravelBelgianProvinceFinder\Contracts\Models\Provinces\PostcodeIntervalContract;
 
-interface IsRelatedToProvince
+interface IsProvinceRelatedModel
 {
     /**
      * Limiting models to those matching given province.
@@ -170,7 +182,7 @@ interface IsRelatedToProvince
      * @param string $postcodeColumn
      * @return Builder
      */
-    public function scopeWhereProvinceIs(Builder $query, ProvinceContract $province, string $postcodeColumn): Builder;
+    public function scopeWhereProvinceIs(Builder $query, ProvinceContract $province, ?string $postcodeColumn = null): Builder;
 
     /**
      * Limiting models to those matching given postcode intervals.
@@ -180,7 +192,7 @@ interface IsRelatedToProvince
      * @param string $postcodeColumn
      * @return Builder
      */
-    public function scopeInPostcodeIntervals(Builder $query, Collection $postcodeIntervals, string $postcodeColumn): Builder;
+    public function scopeInPostcodeIntervals(Builder $query, Collection $postcodeIntervals, ?string $postcodeColumn = null): Builder;
 
      /**
      * Limiting models to those matching given postcode interval.
@@ -190,6 +202,13 @@ interface IsRelatedToProvince
      * @param string $postcodeColumn
      * @return Builder
      */
-    public function scopeInPostcodeInterval(Builder $query, PostcodeIntervalContract $postcodeInterval, string $postcodeColumn): Builder;
+    public function scopeInPostcodeInterval(Builder $query, PostcodeIntervalContract $postcodeInterval, ?string $postcodeColumn = null): Builder;
+
+    /**
+     * Getting related province using postcode column.
+     * 
+     * @return ?ProvinceContract
+     */
+    public function getProvinceByPostcode(): ?ProvinceContract;
 }
 ```
