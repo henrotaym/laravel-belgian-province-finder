@@ -62,9 +62,11 @@ trait IsProvinceRelatedModel
      */
     public function getProvinceByPostcode(): ?ProvinceContract
     {
+        if (!$postcode = $this->getProvincePostcodeValue()) return null;
+
         /** @var ProvinceRepositoryContract */
         $repository = app()->make(ProvinceRepositoryContract::class);
 
-        return $repository->findByPostcode($this->getProvincePostcodeValue());
+        return $repository->findByPostcode($postcode);
     }
 }

@@ -24,15 +24,49 @@ class IsProvinceRelatedModelTest extends TestCase
         $this->assertEquals(1, DB::table('clients')->count());
     }
 
-    public function test_client_is_limiting_to_province()
+    public function test_scope_is_including_clients_matching_given_province()
     {
         $client = Client::factory()->create(['address' => ['postcode' => 2000]]);
-        $province = app()->make(ProvinceRepositoryContract::class)->findByKey(ProvinceKey::ANTWERP);
+        $province = $this->newProvinceRepository()->findByKey(ProvinceKey::ANTWERP);
+
         $this->assertEquals(
             $client->id,
             Client::whereProvinceIs($province)->first()?->id
         );
+    }
 
-        dd($client->getProvinceByPostcode());
+    public function test_scope_is_excluding_clients_not_matching_given_province()
+    {
+        Client::factory()->create(['address' => ['postcode' => 6000]]);
+        $province = $this->newProvinceRepository()->findByKey(ProvinceKey::ANTWERP);
+
+        $this->assertEquals(0, Client::whereProvinceIs($province)->count());
+    }
+
+    public function test_getting_province_based_on_postcode_column()
+    {
+        $client = Client::factory()->create(['address' => ['postcode' => 2000]]);
+        $province = $this->newProvinceRepository()->findByKey(ProvinceKey::ANTWERP);
+
+        $this->assertEquals($province->getKey(), $client->getProvinceByPostcode()->getKey());
+    }
+
+    public function test_getting_province_based_on_postcode_column_returning_null_if_not_found()
+    {
+        $client = Client::factory()->create(['address' => ['postcode' => 123456789]]);
+
+        $this->assertNull($client->getProvinceByPostcode());
+    }
+
+    public function test_getting_province_based_on_postcode_column_returning_null_if_no_postcode()
+    {
+        $client = Client::factory()->create(['address' => ['postcode' => null]]);
+
+        $this->assertNull($client->getProvinceByPostcode());
+    }
+
+    protected function newProvinceRepository(): ProvinceRepositoryContract
+    {
+        return app()->make(ProvinceRepositoryContract::class);
     }
 }
