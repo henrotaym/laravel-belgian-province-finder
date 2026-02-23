@@ -1,14 +1,9 @@
-version: '3'
 services:
-  composer:
-    build:
-      dockerfile: ComposerDockerfile
-      context: .
-    volumes:
-      - ./:/usr/src/app
-  php:
+  cli:
     build:
       context: .
-      dockerfile: PhpDockerfile
+      target: cli
+      dockerfile: Dockerfile
+    image: "laravel-belgian-province-finder-php-local"
     volumes:
-      - ./:/usr/src/app
+      - ./:/opt/apps/app

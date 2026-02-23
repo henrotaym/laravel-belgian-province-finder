@@ -13,7 +13,7 @@ class IsProvinceRelatedModelTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function getEnvironmentSetUp($app)
+    public function getEnvironmentSetUp($app): void
     {
         app()->make(CreateClientsTable::class)->up();
     }
