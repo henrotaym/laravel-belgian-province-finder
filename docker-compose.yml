@@ -7,3 +7,11 @@ services:
     image: "laravel-belgian-province-finder-php-local"
     volumes:
       - ./:/opt/apps/app
+  bun:
+    build:
+      context: .
+      target: bun
+      dockerfile: Dockerfile
+    image: "laravel-belgian-province-finder-bun-local"
+    volumes:
+      - ./:/opt/apps/app

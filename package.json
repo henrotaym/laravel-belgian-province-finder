@@ -1,9 +1,16 @@
 {
     "name": "@henrotaym/laravel-belgian-province-finder",
     "version": "2.0.0",
-    "private": true,
+    "main": "index.js",
+    "repository": "git@github.com:henrotaym/laravel-belgian-province-finder.git",
+    "author": "Mathieu Henrotay <mathieu.henrotay@gmail.com>",
     "license": "MIT",
+    "private": true,
+    "devDependencies": {
+        "@changesets/cli": "^2.29.7"
+    },
     "scripts": {
+        "release": "changeset publish",
         "postversion": "git push && git push --tags"
     }
 }
