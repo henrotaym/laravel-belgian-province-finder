@@ -1,6 +1,6 @@
 {
     "name": "@henrotaym/laravel-belgian-province-finder",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "main": "index.js",
     "repository": "git@github.com:henrotaym/laravel-belgian-province-finder.git",
     "author": "Mathieu Henrotay <mathieu.henrotay@gmail.com>",
